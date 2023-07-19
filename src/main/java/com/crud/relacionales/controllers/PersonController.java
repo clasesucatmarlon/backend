@@ -30,16 +30,18 @@ public class PersonController {
     @PostMapping
     @RequestMapping(value = "createperson", method = RequestMethod.POST)
     public ResponseEntity<?> CreatePerson(@RequestBody Person person) {
-        ValidateEmail validateEmail = new ValidateEmail();
-        Boolean sucessEmail = validateEmail.IsValidEmail(person.getEmail());
-
+        // ValidateEmail validateEmail = new ValidateEmail();
+        // Boolean sucessEmail = validateEmail.IsValidEmail(person.getEmail());
+        Person personCreated = this.psIMPL.createPerson(person);
+        return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
+        /*
         if (sucessEmail) {
             Person personCreated = this.psIMPL.createPerson(person);
             return ResponseEntity.status(HttpStatus.CREATED).body(personCreated);
         } else {
             var error = "Error: " + 206 + " Partial Content";
             return ResponseEntity.status(HttpStatus.PARTIAL_CONTENT).build();
-        }
+        } */
     }
 
     @PutMapping
